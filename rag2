@@ -1,0 +1,84 @@
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_qdrant import QdrantVectorStore
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+
+# ---------------- CONFIG ----------------
+QDRANT_URL = "http://localhost:6333"
+COLLECTION_NAME = "stpl_collection"
+EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
+# ----------------------------------------
+
+prompt_template = """
+You are an AI assistant for storeplace.
+
+Instructions:
+- Answer ONLY using the provided context.
+- If the context is not relevant or missing, reply exactly:
+  "Hmm, I'm not sure. Please ask information about storeplace only"
+
+{context}
+
+Question: {question}
+
+Answer:
+"""
+
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
+
+def create_rag_chain():
+    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+
+    vectorstore = QdrantVectorStore.from_existing_collection(
+        embedding=embeddings,
+        url=QDRANT_URL,
+        collection_name=COLLECTION_NAME,
+)
+
+    retriever = vectorstore.as_retriever(
+        search_type="similarity",
+        search_kwargs={"k": 5}
+    )
+
+    prompt = PromptTemplate(
+        input_variables=["context", "question"],
+        template=prompt_template,
+    )
+
+    llm = ChatOpenAI(
+        base_url="http://172.23.129.63:11437/v1",
+        api_key="dummy-key",
+        model="openai/gpt-oss-120b",
+        temperature=0.2,
+    )
+
+    rag_chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    return rag_chain
+
+if __name__ == "__main__":
+    rag = create_rag_chain()
+
+    print("🤖 Storeplace Chatbot (type 'exit' to quit)\n")
+
+    while True:
+        question = input("You: ").strip()
+
+        if question.lower() in ["exit", "quit"]:
+            print("Bot: Goodbye 👋")
+            break
+
+        if not question:
+            print("Bot: Please ask a valid question.")
+            continue
+
+        response = rag.invoke(question)
+        print(f"Bot: {response}\n")

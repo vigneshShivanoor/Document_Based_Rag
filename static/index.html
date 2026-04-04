@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>STPL Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <!-- Markdown support -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<!-- Floating Button -->
+<button id="chatToggleBtn">💬</button>
+
+<!-- Chat Widget -->
+<div class="chat-container floating-chat" id="chatWidget">
+
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="header-logo">
+      <img src="/static/image.png" class="logo-img" />
+      <div class="logo-text">STPL Chatbot</div>
+    </div>
+
+    <div class="header-actions">
+      <button id="closeChatBtn">✖</button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="chat-messages" id="chatMessages">
+    <div class="message bot">Hello! How can I help you?</div>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input">
+    <input id="userInput" placeholder="Type your message..." />
+    <button id="sendBtn">Send</button>
+  </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
