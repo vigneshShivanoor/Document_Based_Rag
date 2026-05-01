@@ -39,7 +39,7 @@ async function sendMessage() {
   addMessage("Thinking...", "bot");
 
   try {
-    const res = await fetch("/stplsubmit", {
+    const res = await fetch("/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
