@@ -9,16 +9,16 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
 QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "stpl_collection"
+COLLECTION_NAME = "DOcument_collection"
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 
 prompt_template = """
-You are an AI assistant for storeplace.
+You are an AI assistant for DOcument.
 
 Instructions:
 - Answer ONLY using the provided context.
 - If the context is not relevant or missing, reply exactly:
-  "Hmm, I'm not sure. Please ask information about storeplace only"
+  "Hmm, I'm not sure. Please ask information about DOcument only"
 
 {context}
 
@@ -70,7 +70,7 @@ def create_rag_chain():
 # CLI test only
 if __name__ == "__main__":
     rag = create_rag_chain()
-    print("🤖 Storeplace Chatbot (type 'exit' to quit)\n")
+    print("🤖 DOcument Chatbot (type 'exit' to quit)\n")
 
     while True:
         question = input("You: ").strip()
