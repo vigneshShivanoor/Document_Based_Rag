@@ -4,7 +4,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 
 # ---------------- CONFIG ----------------
-PDF_PATH = r"C:\Users\VIGNESH\OneDrive\Desktop\Rag\Document_storeplace.pdf"
+PDF_PATH = r"C:\Users\VIGNESH\OneDrive\Desktop\Rag\Document.pdf"
 
 QDRANT_URL = "http://localhost:6333"
 COLLECTION_NAME = "stpl_collection"
