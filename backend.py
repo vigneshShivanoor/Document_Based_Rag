@@ -21,7 +21,7 @@ class ChatRequest(BaseModel):
     session_id: str | None = None
     is_feedback: bool | None = False
 
-@app.post("/stplsubmit")
+@app.post("/Submit")
 def chat(req: ChatRequest):
     question = req.text.strip()
 
