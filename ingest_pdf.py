@@ -7,7 +7,7 @@ from langchain_qdrant import QdrantVectorStore
 PDF_PATH = r"C:\Users\VIGNESH\OneDrive\Desktop\Rag\Document.pdf"
 
 QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "stpl_collection"
+COLLECTION_NAME = "Docuement"
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 # ----------------------------------------
 
