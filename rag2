@@ -7,17 +7,17 @@ from langchain_core.runnables import RunnablePassthrough
 
 # ---------------- CONFIG ----------------
 QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "stpl_collection"
+COLLECTION_NAME = "Document"
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 # ----------------------------------------
 
 prompt_template = """
-You are an AI assistant for storeplace.
+You are an AI assistant for Document.
 
 Instructions:
 - Answer ONLY using the provided context.
 - If the context is not relevant or missing, reply exactly:
-  "Hmm, I'm not sure. Please ask information about storeplace only"
+  "Hmm, I'm not sure. Please ask information about Docuement only"
 
 {context}
 
@@ -67,7 +67,7 @@ def create_rag_chain():
 if __name__ == "__main__":
     rag = create_rag_chain()
 
-    print("🤖 Storeplace Chatbot (type 'exit' to quit)\n")
+    print("🤖 Docuement Chatbot (type 'exit' to quit)\n")
 
     while True:
         question = input("You: ").strip()
